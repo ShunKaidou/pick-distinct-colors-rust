@@ -2,7 +2,7 @@
 
 A Rust library for selecting maximally distinct colors from a pool using various algorithms in CIELAB color space with CIE76 deltaE as the distance metric.
 
-This is an optimized Rust port of the JavaScript library [pick-distinct-colors](https://github.com/bdamokos/pick-distinct-colors) by Bence Damokos, with some small bug fixes and significant performance improvements.
+This is an optimized Rust port of the JavaScript library [pick-distinct-colors](https://github.com/bdamokos/pick-distinct-colors) by bdamokos, with some small bug fixes and significant performance improvements.
 
 ## Features
 
@@ -252,5 +252,5 @@ MIT
 
 ## Credits
 
-- Original JavaScript library by [Bence Damokos](https://github.com/bdamokos/pick-distinct-colors)
+- Original JavaScript library by [bdamokos](https://github.com/bdamokos/pick-distinct-colors)
 - Rust port generated with the help of [Claude Code](https://claude.ai/code) (Opus)
