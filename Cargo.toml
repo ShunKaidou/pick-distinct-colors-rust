@@ -1,0 +1,33 @@
+[package]
+name = "pick-distinct-colors"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+description = "Select maximally distinct colors using various algorithms in CIELAB color space"
+keywords = ["color", "distinct", "palette", "deltaE", "lab"]
+categories = ["algorithms", "graphics"]
+
+[features]
+default = []
+parallel = ["dep:rayon"]
+serde = ["dep:serde"]
+cli = ["dep:clap", "dep:serde_json", "serde"]
+
+[dependencies]
+thiserror = "2"
+rayon = { version = "1", optional = true }
+serde = { version = "1", features = ["derive"], optional = true }
+clap = { version = "4", features = ["derive"], optional = true }
+serde_json = { version = "1", optional = true }
+
+[[bin]]
+name = "pick-colors"
+path = "src/bin/pick-colors.rs"
+required-features = ["cli"]
+
+[dev-dependencies]
+criterion = { version = "0.5", features = ["html_reports"] }
+
+[[bench]]
+name = "algorithms"
+harness = false

@@ -1,0 +1,30 @@
+# Build artifacts
+/target
+Cargo.lock
+
+# Editor / IDE
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+*.code-workspace
+*.iml
+
+# OS files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# AI tooling state (Claude Code, oh-my-claudecode)
+.claude/
+.omc/
+
+# Environment / secrets (safety net)
+.env
+.env.*
+*.pem
+*.key
+
+# Development process docs
+TEST_PLAN.md
