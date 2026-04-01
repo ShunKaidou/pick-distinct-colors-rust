@@ -102,6 +102,38 @@ pick-colors -c 5 -a greedy -s 12345 -p 200 -f rgb
 
 **Output formats:** `hex` (default), `rgb`, `json`
 
+### WASM / npm usage
+
+The library compiles to WebAssembly for use in JavaScript/TypeScript projects:
+
+```bash
+# Build (requires wasm-pack)
+make wasm
+
+# Or manually
+wasm-pack build --release --target nodejs -- --features wasm
+```
+
+```javascript
+const wasm = require('pick-distinct-colors-wasm');
+
+// Pick 8 distinct colors
+const result = JSON.parse(wasm.pick_colors(JSON.stringify({
+    count: 8,
+    algorithm: "greedy",
+    seed: 42,
+    pool_size: 200
+})));
+console.log(result.colors); // [{ hex: "#ff8000", rgb: [255, 128, 0] }, ...]
+
+// Utility functions
+const lab = wasm.rgb_to_lab(255, 0, 0);           // [53.2, 80.1, 67.2]
+const dist = wasm.color_distance(255,0,0, 0,255,0); // 170.58
+const algos = JSON.parse(wasm.available_algorithms()); // ["greedy", ...]
+```
+
+**Package size:** ~199KB raw, ~89KB gzipped
+
 ## Algorithms
 
 | Algorithm | Key | Time Complexity | Best For |

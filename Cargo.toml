@@ -4,14 +4,22 @@ version = "0.1.0"
 edition = "2021"
 license = "MIT"
 description = "Select maximally distinct colors using various algorithms in CIELAB color space"
+repository = "https://github.com/ShunKaidou/pick-distinct-colors-rust"
 keywords = ["color", "distinct", "palette", "deltaE", "lab"]
 categories = ["algorithms", "graphics"]
+
+[package.metadata.wasm-pack.profile.release]
+wasm-opt = ["-Oz"]
+
+[lib]
+crate-type = ["cdylib", "rlib"]
 
 [features]
 default = []
 parallel = ["dep:rayon"]
 serde = ["dep:serde"]
 cli = ["dep:clap", "dep:serde_json", "serde"]
+wasm = ["dep:wasm-bindgen", "dep:js-sys", "dep:serde_json", "serde"]
 
 [dependencies]
 thiserror = "2"
@@ -19,6 +27,8 @@ rayon = { version = "1", optional = true }
 serde = { version = "1", features = ["derive"], optional = true }
 clap = { version = "4", features = ["derive"], optional = true }
 serde_json = { version = "1", optional = true }
+wasm-bindgen = { version = "0.2", optional = true }
+js-sys = { version = "0.3", optional = true }
 
 [[bin]]
 name = "pick-colors"

@@ -13,7 +13,6 @@ pub mod exact_maximum;
 
 use std::fmt;
 use std::str::FromStr;
-use std::time::Instant;
 
 use crate::color::{sort_colors_by_lab, Lab, Rgb};
 use crate::distance::DistanceMatrix;
@@ -145,7 +144,7 @@ pub(crate) fn run_algorithm(
     options: &AlgorithmOptions,
     seed: u32,
 ) -> crate::error::Result<SelectionResult> {
-    let start = Instant::now();
+    let start = crate::now_ms();
     let mut rng = Mulberry32::new(seed);
 
     let selected_indices = match algorithm {
@@ -181,9 +180,8 @@ pub(crate) fn run_algorithm(
     let selected_labs: Vec<Lab> = selected_indices.iter().map(|&i| labs[i]).collect();
     sort_colors_by_lab(&mut colors, &selected_labs);
 
-    let elapsed = start.elapsed();
     Ok(SelectionResult {
         colors,
-        time_ms: elapsed.as_secs_f64() * 1000.0,
+        time_ms: crate::now_ms() - start,
     })
 }

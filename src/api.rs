@@ -96,13 +96,13 @@ pub fn pick_distinct_colors(config: Config) -> error::Result<SelectionResult> {
 
     // Short-circuit: if selecting all colors, just sort and return them
     if config.count == pool.len() {
-        let start = std::time::Instant::now();
+        let start = crate::now_ms();
         let labs: Vec<Lab> = pool.iter().map(|c| c.to_lab()).collect();
         let mut colors = pool;
         crate::color::sort_colors_by_lab(&mut colors, &labs);
         return Ok(SelectionResult {
             colors,
-            time_ms: start.elapsed().as_secs_f64() * 1000.0,
+            time_ms: crate::now_ms() - start,
         });
     }
 

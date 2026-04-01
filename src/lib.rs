@@ -11,6 +11,24 @@ pub mod error;
 pub mod metrics;
 pub mod pool;
 pub mod prng;
+#[cfg(feature = "wasm")]
+pub mod wasm;
+
+/// Cross-platform millisecond timestamp (works on native and WASM).
+#[cfg(not(target_arch = "wasm32"))]
+pub(crate) fn now_ms() -> f64 {
+    use std::time::{SystemTime, UNIX_EPOCH};
+    SystemTime::now()
+        .duration_since(UNIX_EPOCH)
+        .unwrap_or_default()
+        .as_secs_f64()
+        * 1000.0
+}
+
+#[cfg(target_arch = "wasm32")]
+pub(crate) fn now_ms() -> f64 {
+    js_sys::Date::now()
+}
 
 // Public re-exports
 pub use algorithms::{Algorithm, AlgorithmOptions, SelectionResult};
