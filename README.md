@@ -251,19 +251,6 @@ let r2 = pick_distinct_colors(Config::new(8).seed(42)).unwrap();
 assert_eq!(r1.colors, r2.colors);
 ```
 
-## Bug Fixes Over the JS Version
-
-This Rust port fixes 13 bugs from the original JavaScript implementation:
-
-- **Tabu Search:** randomized initial solution (JS used `[0,1,...,k-1]`), correct tabu recording (JS recorded wrong moves), seed actually used (JS ignored it)
-- **Shuffling:** Fisher-Yates replacing biased `sort(() => rng()-0.5)` in SA, GA, PSO
-- **K-Means++/ACO:** roulette wheel OOB prevention with binary search + clamping
-- **ACO:** fitness-proportional pheromone deposit (JS deposited equally regardless of quality), uses precomputed distance matrix (JS recomputed deltaE despite having one)
-- **PSO:** proper discrete adaptation with probability-based position updates (JS velocity model was broken)
-- **All metaheuristics:** `Vec<bool>` for O(1) membership instead of O(n) `Array.includes()`
-- **Exact Minimum:** branch-and-bound pruning (10-1000x faster than brute force)
-- **Parameter names:** typed `AlgorithmOptions` struct prevents silent config mismatches
-
 ## Testing
 
 ```bash
